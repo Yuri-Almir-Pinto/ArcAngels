@@ -1,0 +1,27 @@
+﻿
+using ArcAngels.ArcAngels.Components;
+using ArcAngels.ArcAngels.Components.Object;
+using ArcAngels.ArcAngels.Components.Spriting;
+using ArcAngels.ArcAngels.Entities;
+using System.Collections.Generic;
+
+namespace ArcAngels.Main
+{
+    class Entry
+    {
+        public static void Main()
+        {
+            var game = new ArcAngels();
+            // game.Run();
+
+            Entity entity = new Entity(new List<AbstractComponent>
+            {
+                new SpriteComponent()
+            });
+        }
+        
+    }
+    
+}
+
+
