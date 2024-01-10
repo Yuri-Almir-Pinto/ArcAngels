@@ -9,26 +9,20 @@ namespace ArcAngels.Main
 {
     class Entry
     {
-        public static void Main()
+        public static int Main()
         {
             var game = new ArcAngels();
             // game.Run();
 
             Entity entity = new Entity(new List<AbstractComponent> { new SpriteComponent() });
-            Entity entity2 = new Entity(new List<AbstractComponent> { new SpriteComponent() });
-            Entity entity3 = new Entity(new List<AbstractComponent> { new SpriteComponent() });
-            Entity entity4 = new Entity(new List<AbstractComponent> { new SpriteComponent() });
-            Entity entity5 = new Entity(new List<AbstractComponent> { new SpriteComponent() });
-
-            entity3.RemoveEntity();
-            entity4.RemoveEntity();
-            entity2.RemoveEntity();
 
             Entity newEntity = new Entity(new List<AbstractComponent> { new SpriteComponent() });
 
-            bool contains = entity.Components.ComponentExists(new ObjectComponent());
+            bool contains = entity.Components.ComponentIsPresent(new ObjectComponent());
 
             var aids = "aids";
+
+            return 0;
         }
         
     }

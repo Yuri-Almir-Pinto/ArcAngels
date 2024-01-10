@@ -15,7 +15,7 @@ namespace ArcAngels.ArcAngels.Entities
         public Entity(List<AbstractComponent> components)
         {
             this._id = GetId();
-            this.Components = new ComponentSet(components);
+            this.Components = new ComponentSet(components, this);
         }
 
         private int GetId() 

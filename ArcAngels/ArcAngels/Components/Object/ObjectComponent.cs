@@ -3,9 +3,9 @@
     // A component that location behavior for an entity.
     public class ObjectComponent : AbstractComponent
     {
-        private float _XPosition;
-        private float _YPosition;
-        public override string _Name
+        public float XPosition;
+        public float YPosition;
+        public override string Name
         {
             get { return "Object"; }
         }
