@@ -5,7 +5,7 @@
     {
         private float _XPosition;
         private float _YPosition;
-        protected override string _Name
+        public override string _Name
         {
             get { return "Object"; }
         }
