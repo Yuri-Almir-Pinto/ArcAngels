@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ArcAngels.ArcAngels.Entities;
+using ArcAngels.ArcAngels.Systems;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -8,12 +10,14 @@ namespace ArcAngels.Main
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        public WorldSystem World;
 
         public ArcAngels()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+            World = new WorldSystem();
         }
 
         protected override void Initialize()

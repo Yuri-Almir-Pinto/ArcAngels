@@ -1,11 +1,15 @@
 ﻿using ArcAngels.ArcAngels.Components;
+using ArcAngels.ArcAngels.Components.Spriting;
 using ArcAngels.ArcAngels.Exceptions;
 using Microsoft.VisualBasic;
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ArcAngels.ArcAngels.Entities
 {
-    public class ComponentSet
+    public class ComponentSet : IEnumerable
     {
         private HashSet<AbstractComponent> _components;
         private Entity _owner;
@@ -14,43 +18,52 @@ namespace ArcAngels.ArcAngels.Entities
             ALREADY_EXISTS, DOES_NOT_EXIST, ADDED, REMOVED
         }
 
-        public ComponentSet(List<AbstractComponent> components, Entity owner)
+        public ComponentSet(Entity owner, params AbstractComponent[] components)
         {
+            _owner = owner;
             this._components = new HashSet<AbstractComponent>();
+
             foreach (var component in components)
             {
                 this.AddComponent(component);
             }
 
-            _owner = owner;
+            
         }
 
-        public bool ComponentIsPresent(AbstractComponent component)
+        public bool ComponentIsPresent(Type componentType)
         {
-            return this._components.Contains(component);
+            foreach (var component in _components)
+            {
+                if (component.GetType() == componentType) return true;
+            }
+
+            return false;
         }
 
         public Response AddComponent(AbstractComponent component)
         {
-            if (this.ComponentIsPresent(component))
+            if (this.ComponentIsPresent(component.GetType()))
                 return Response.ALREADY_EXISTS;
             else
             {
-                foreach(var dependency in component.GetDependencies())
+                component.Owner = _owner;
+
+                foreach (var dependency in component.Dependencies)
                 {
-                    if (!this.ComponentIsPresent(dependency))
+                    if (!this.ComponentIsPresent(dependency.GetType()))
                         throw new DependencyNotFound(component);
                 }
-                _components.Add(component);
 
-                component.Owner = _owner;
+                _components.Add(component);
+                
                 return Response.ADDED;
             }
         }
 
         public Response RemoveComponent(AbstractComponent component)
         {
-            if (!this.ComponentIsPresent(component))
+            if (!this.ComponentIsPresent(component.GetType()))
                 return Response.DOES_NOT_EXIST;
             else
             {
@@ -58,5 +71,12 @@ namespace ArcAngels.ArcAngels.Entities
                 return Response.REMOVED;
             }
         }
+
+        public AbstractComponent[] GetAllComponents()
+        {
+            return _components.ToArray();
+        }
+
+        public IEnumerator GetEnumerator() => GetEnumerator();
     }
 }

@@ -14,7 +14,7 @@ namespace ArcAngels.ArcAngels.Exceptions
 
         }
 
-        public DependencyNotFound(AbstractComponent component) : base($"The following dependencies of the {component.Name} component were not found: {ListToString(component.GetDependencies())}")
+        public DependencyNotFound(AbstractComponent component) : base($"The following dependencies of the {component.GetType().Name} component were not found: {ListToString(component.Dependencies)}\n\nOwner: {component.Owner}")
         {
 
         }
@@ -24,7 +24,7 @@ namespace ArcAngels.ArcAngels.Exceptions
             string dependenciesNames = "";
             for (int i  = 0; i < dependencies.Count; i++)
             {
-                dependenciesNames += dependencies[i].Name;
+                dependenciesNames += dependencies[i].GetType().Name;
                 dependenciesNames += i == dependencies.Count - 1 ? "." : ",";
             }
 

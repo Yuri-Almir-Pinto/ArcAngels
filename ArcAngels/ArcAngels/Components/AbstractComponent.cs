@@ -5,19 +5,18 @@ namespace ArcAngels.ArcAngels.Components
 {
     public abstract class AbstractComponent
     {
-        public abstract string Name { get; }
-        public Entity Owner;
-
-        public virtual List<AbstractComponent> GetDependencies()
-        {
-            return new List<AbstractComponent>();
+        public virtual List<AbstractComponent> Dependencies { get
+            {
+                return new List<AbstractComponent>();
+            } 
         }
+        public Entity Owner;
 
         public override bool Equals(object obj)
         {
             if (obj is AbstractComponent other)
             {
-                return this.Name == other.Name;
+                return this.GetType() == other.GetType();
             }
 
             return false;
@@ -25,7 +24,7 @@ namespace ArcAngels.ArcAngels.Components
 
         public override int GetHashCode()
         {
-            return Name.GetHashCode();
+            return this.GetType().GetHashCode();
         }
     }
 }
