@@ -6,6 +6,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 
 namespace ArcAngels.ArcAngels.Entities
 {
@@ -78,9 +79,15 @@ namespace ArcAngels.ArcAngels.Entities
             }
         }
 
-        public AbstractComponent[] GetAllComponents()
+        public IEnumerable<Type> GetAllComponents()
         {
-            return _components.ToArray();
+            List<Type> types = new List<Type>();
+            foreach (var component in _components)
+            {
+                types.Add(component.GetType());
+            }
+
+            return types;
         }
 
         public AbstractComponent GetComponent(Type type)

@@ -17,16 +17,15 @@ namespace ArcAngels.ArcAngels.Systems
 
         public Entity SpawnEntity<TEntity>(params AbstractComponent[] components) where TEntity : Entity, new()
         {
-            // if (!entityType.IsAssignableFrom(typeof(Entity))) throw new ArgumentException("Given type is not an 'Entity' type, nor is it a Type derived from the 'Entity' type.");
-
-            //Entity entity = (Entity) Activator.CreateInstance(entityType, components);
-
             Entity entity = new TEntity
             {
                 InitComponents = components
             };
 
-            OrganizeNewEntity(entity);
+            foreach (var list in GetRelevantEntityList(entity.Components.GetAllComponents()))
+            {
+                list.Add(entity);
+            }
 
             return entity;
         }
@@ -43,24 +42,16 @@ namespace ArcAngels.ArcAngels.Systems
             return entity;
         }
 
-        private void OrganizeNewEntity(Entity entity)
-        {
-            foreach (var list in GetRelevantEntityList(entity.Components.GetAllComponents()))
-            {
-                list.Add(entity);
-            }
-        }
-
-        private IEnumerable<List<Entity>> GetRelevantEntityList(params AbstractComponent[] components)
+        private IEnumerable<List<Entity>> GetRelevantEntityList(IEnumerable<Type> types)
         {
             HashSet<List<Entity>> entityLists = new HashSet<List<Entity>>
             {
                 _globalEntities
             };
 
-            foreach (var component in components)
+            foreach (var type in types)
             {
-                if (component.GetType() == typeof(SpriteComponent)) entityLists.Add(_renderableEntities);
+                if (type == typeof(SpriteComponent)) entityLists.Add(_renderableEntities);
             }
 
             return entityLists;
