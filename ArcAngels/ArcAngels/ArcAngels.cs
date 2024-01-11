@@ -33,7 +33,7 @@ namespace ArcAngels.Main
         protected override void LoadContent()
         {
             World.SpawnEntity(typeof(Entity),
-                new ObjectComponent { XPosition = 0, YPosition = 0},
+                new ObjectComponent { Rectangle = new Rectangle { X = 0, Y = 0, Height = 100, Width = 50 } },
                 new SpriteComponent { Texture = Content.Load<Texture2D>("Akioteste") });
         }
 

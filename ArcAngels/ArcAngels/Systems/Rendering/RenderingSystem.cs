@@ -35,7 +35,7 @@ namespace ArcAngels.ArcAngels.Systems.Rendering
                 SpriteComponent spriteComponent = (SpriteComponent) entity.Components.GetComponent(typeof(SpriteComponent));
 
                 _spriteBatch.Draw(spriteComponent.Texture, 
-                    new Vector2 { X = objectComponent.XPosition, Y = objectComponent.YPosition },
+                    objectComponent.Rectangle,
                     Color.White);
             }
 
