@@ -32,9 +32,10 @@ namespace ArcAngels.Main
 
         protected override void LoadContent()
         {
-            World.SpawnEntity(typeof(Entity),
+            World.SpawnEntity<Entity>(
                 new ObjectComponent { Rectangle = new Rectangle { X = 0, Y = 0, Height = 100, Width = 50 } },
-                new SpriteComponent { Texture = Content.Load<Texture2D>("Akioteste") });
+                new SpriteComponent { Texture = Content.Load<Texture2D>("Akioteste") }
+                );
         }
 
         protected override void Update(GameTime gameTime)

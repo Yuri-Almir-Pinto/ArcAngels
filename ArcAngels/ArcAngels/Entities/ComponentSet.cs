@@ -18,6 +18,12 @@ namespace ArcAngels.ArcAngels.Entities
             ALREADY_EXISTS, DOES_NOT_EXIST, ADDED, REMOVED
         }
 
+        public ComponentSet (Entity owner)
+        {
+            _owner = owner;
+            this._components = new HashSet<AbstractComponent>();
+        }
+
         public ComponentSet(Entity owner, params AbstractComponent[] components)
         {
             _owner = owner;

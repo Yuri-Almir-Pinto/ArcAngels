@@ -15,13 +15,16 @@ namespace ArcAngels.ArcAngels.Systems
         private List<Entity> _renderableEntities = new List<Entity>();
         public List<Entity> RenderableEntities { get { return _renderableEntities; } }
 
-        public Entity SpawnEntity(Type entityType = null, params AbstractComponent[] components)
+        public Entity SpawnEntity<TEntity>(params AbstractComponent[] components) where TEntity : Entity, new()
         {
-            entityType ??= typeof(Entity);
+            // if (!entityType.IsAssignableFrom(typeof(Entity))) throw new ArgumentException("Given type is not an 'Entity' type, nor is it a Type derived from the 'Entity' type.");
 
-            if (!entityType.IsAssignableFrom(typeof(Entity))) throw new ArgumentException("Given type is not an 'Entity' type, nor is it a Type derived from the 'Entity' type.");
+            //Entity entity = (Entity) Activator.CreateInstance(entityType, components);
 
-            Entity entity = (Entity) Activator.CreateInstance(entityType, components);
+            Entity entity = new TEntity
+            {
+                InitComponents = components
+            };
 
             OrganizeNewEntity(entity);
 

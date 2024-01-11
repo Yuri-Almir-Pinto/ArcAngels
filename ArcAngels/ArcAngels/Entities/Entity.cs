@@ -8,15 +8,31 @@ namespace ArcAngels.ArcAngels.Entities
     public class Entity
     {
         private int _id;
-        public int Id { get { return _id; } }
-        public ComponentSet Components { get; protected set; }
         private static int _nextId = 0;
-        private static LinkedList<int> _idsToFill = new LinkedList<int>();
+        private static List<int> _idsToFill = new List<int>();
+        private ComponentSet _components;
 
-        public Entity(params AbstractComponent[] components)
+        public int Id { get { return _id; } }
+        public AbstractComponent[] InitComponents
+        {
+            init => _components = new ComponentSet(this, value);
+        }
+
+        public ComponentSet Components
+        {
+            get { return _components; }
+        }
+
+        public Entity()
         {
             this._id = _NewId();
-            this.Components = new ComponentSet(this, components);
+            this._components = new ComponentSet(this);
+        }
+
+        public Entity(AbstractComponent[] components)
+        {
+            this._id = _NewId();
+            this._components = new ComponentSet(this, components);
         }
 
         private int _NewId() 
@@ -24,16 +40,15 @@ namespace ArcAngels.ArcAngels.Entities
             if (_idsToFill.Count == 0) return _nextId++;
             else
             {
-                int id = _idsToFill.Last.Value;
-                _idsToFill.RemoveLast();
+                int id = _idsToFill[_idsToFill.Count - 1];
+                _idsToFill.RemoveAt(_idsToFill.Count -1);
                 return id;
             }
         }
 
         public Entity RemoveEntity()
         {
-            _idsToFill.AddLast(_id);
-            _idsToFill = new LinkedList<int>(_idsToFill.OrderByDescending(x => x));
+            _idsToFill.Add(_id);
             _id = -1;
 
             return this;
