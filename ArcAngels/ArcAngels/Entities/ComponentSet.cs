@@ -51,7 +51,7 @@ namespace ArcAngels.ArcAngels.Entities
 
                 foreach (var dependency in component.Dependencies)
                 {
-                    if (!this.ComponentIsPresent(dependency.GetType()))
+                    if (!this.ComponentIsPresent(dependency))
                         throw new DependencyNotFound(component);
                 }
 
@@ -75,6 +75,11 @@ namespace ArcAngels.ArcAngels.Entities
         public AbstractComponent[] GetAllComponents()
         {
             return _components.ToArray();
+        }
+
+        public AbstractComponent GetComponent(Type type)
+        {
+            return _components.First(x => x.GetType() == type);
         }
 
         public IEnumerator GetEnumerator() => GetEnumerator();

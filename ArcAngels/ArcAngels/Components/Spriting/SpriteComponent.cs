@@ -1,4 +1,6 @@
 ﻿using ArcAngels.ArcAngels.Components.Object;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 
 namespace ArcAngels.ArcAngels.Components.Spriting
@@ -6,15 +8,22 @@ namespace ArcAngels.ArcAngels.Components.Spriting
     // A component that stores data relevant to rendering an entity on the screen, such as sprites.
     public class SpriteComponent : AbstractComponent
     {
-        public override List<AbstractComponent> Dependencies 
+        public override Type[] Dependencies 
         { 
             get 
             {
-                return new List<AbstractComponent>
+                return new Type[1]
                 {
-                    new ObjectComponent()
+                    typeof(ObjectComponent)
                 }; 
             } 
         }
+        public Texture2D Texture { get; set; }
+
+        public SpriteComponent(Texture2D texture)
+        {
+            Texture = texture;
+        }
+
     }
 }

@@ -13,9 +13,9 @@ namespace ArcAngels.Main
         public static int Main()
         {
             var game = new ArcAngels();
-            // game.Run();
+            game.Run();
 
-            WorldSystem World = new WorldSystem();
+            /*WorldSystem World = new WorldSystem();
 
             Entity entity1 = World.SpawnEntity(typeof(Entity));
             Entity entity2 = World.SpawnEntity(typeof(Entity),
@@ -28,9 +28,7 @@ namespace ArcAngels.Main
 
             Entity entity4 = World.SpawnEntity(typeof(Entity),
                 new ObjectComponent(),
-                new SpriteComponent());
-
-            var aids = "aids";
+                new SpriteComponent());*/
 
             return 0;
         }

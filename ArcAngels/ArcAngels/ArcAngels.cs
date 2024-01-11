@@ -1,5 +1,8 @@
-﻿using ArcAngels.ArcAngels.Entities;
+﻿using ArcAngels.ArcAngels.Components.Object;
+using ArcAngels.ArcAngels.Components.Spriting;
+using ArcAngels.ArcAngels.Entities;
 using ArcAngels.ArcAngels.Systems;
+using ArcAngels.ArcAngels.Systems.Rendering;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -9,29 +12,29 @@ namespace ArcAngels.Main
     public class ArcAngels : Game
     {
         private GraphicsDeviceManager _graphics;
-        private SpriteBatch _spriteBatch;
         public WorldSystem World;
+        public RenderingSystem RenderingSystem;
 
         public ArcAngels()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            World = new WorldSystem();
         }
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            World = new WorldSystem();
+            RenderingSystem = new RenderingSystem(new SpriteBatch(GraphicsDevice));
 
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
+            World.SpawnEntity(typeof(Entity),
+                new ObjectComponent(0, 0),
+                new SpriteComponent(Content.Load<Texture2D>("Akioteste")));
         }
 
         protected override void Update(GameTime gameTime)
@@ -48,7 +51,7 @@ namespace ArcAngels.Main
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            RenderingSystem.Render(World.RenderableEntities);
 
             base.Draw(gameTime);
         }

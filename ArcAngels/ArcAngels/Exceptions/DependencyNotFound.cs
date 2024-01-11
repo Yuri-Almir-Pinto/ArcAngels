@@ -19,13 +19,13 @@ namespace ArcAngels.ArcAngels.Exceptions
 
         }
 
-        private static string ListToString(List<AbstractComponent> dependencies)
+        private static string ListToString(Type[] dependencies)
         {
             string dependenciesNames = "";
-            for (int i  = 0; i < dependencies.Count; i++)
+            for (int i  = 0; i < dependencies.Length; i++)
             {
-                dependenciesNames += dependencies[i].GetType().Name;
-                dependenciesNames += i == dependencies.Count - 1 ? "." : ",";
+                dependenciesNames += dependencies[i].Name;
+                dependenciesNames += i == dependencies.Length - 1 ? "." : ",";
             }
 
             return dependenciesNames;

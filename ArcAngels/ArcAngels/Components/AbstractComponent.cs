@@ -1,13 +1,14 @@
 ﻿using ArcAngels.ArcAngels.Entities;
+using System;
 using System.Collections.Generic;
 
 namespace ArcAngels.ArcAngels.Components
 {
     public abstract class AbstractComponent
     {
-        public virtual List<AbstractComponent> Dependencies { get
+        public virtual Type[] Dependencies { get
             {
-                return new List<AbstractComponent>();
+                return Array.Empty<Type>();
             } 
         }
         public Entity Owner;
