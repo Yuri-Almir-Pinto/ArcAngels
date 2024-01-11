@@ -18,12 +18,7 @@ namespace ArcAngels.ArcAngels.Components.Spriting
                 }; 
             } 
         }
-        public Texture2D Texture { get; set; }
-
-        public SpriteComponent(Texture2D texture)
-        {
-            Texture = texture;
-        }
+        public required Texture2D Texture { get; set; }
 
     }
 }

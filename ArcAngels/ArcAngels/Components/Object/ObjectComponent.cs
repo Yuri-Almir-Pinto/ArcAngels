@@ -3,13 +3,7 @@
     // A component that stores data about the location of an entity.
     public class ObjectComponent : AbstractComponent
     {
-        public float XPosition {  get; set; }
-        public float YPosition { get; set; }
-
-        public ObjectComponent(float Xpos, float Ypos)
-        {
-            XPosition = Xpos;
-            YPosition = Ypos;
-        }
+        public required float XPosition {  get; set; }
+        public required float YPosition { get; set; }
     }
 }
