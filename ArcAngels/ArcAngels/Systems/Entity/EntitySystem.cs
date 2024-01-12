@@ -4,9 +4,9 @@ using ArcAngels.ArcAngels.Entities;
 using System;
 using System.Collections.Generic;
 
-namespace ArcAngels.ArcAngels.Systems
+namespace ArcAngels.ArcAngels.Systems.World
 {
-    public class WorldSystem : AbstractSystem
+    public class EntitySystem : AbstractSystem
     {
         // Lists containing all entities currently existing
         private List<Entity> _globalEntities = new List<Entity>();
@@ -32,7 +32,7 @@ namespace ArcAngels.ArcAngels.Systems
 
         public Entity DespawnEntity(Entity entity)
         {
-            foreach(var list in GetRelevantEntityList(entity.Components.GetAllComponents()))
+            foreach (var list in GetRelevantEntityList(entity.Components.GetAllComponents()))
             {
                 list.Remove(entity);
             }
@@ -51,7 +51,7 @@ namespace ArcAngels.ArcAngels.Systems
 
             foreach (var type in types)
             {
-                if (type == typeof(SpriteComponent)) entityLists.Add(_renderableEntities);
+                if (type == typeof(DrawableComponent)) entityLists.Add(_renderableEntities);
             }
 
             return entityLists;

@@ -4,6 +4,9 @@ using ArcAngels.ArcAngels.Components.Object;
 using ArcAngels.ArcAngels.Components.Spriting;
 using ArcAngels.ArcAngels.Entities;
 using ArcAngels.ArcAngels.Systems;
+using ArcAngels.ArcAngels.Systems.Event;
+using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 
 namespace ArcAngels.Main
@@ -31,6 +34,11 @@ namespace ArcAngels.Main
                 new SpriteComponent());*/
 
             return 0;
+        }
+
+        public static void Batata(object entity, EventArgs args)
+        {
+            Console.WriteLine("Batata.");
         }
         
     }

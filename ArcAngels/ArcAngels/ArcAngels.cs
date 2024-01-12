@@ -1,8 +1,8 @@
 ﻿using ArcAngels.ArcAngels.Components.Object;
 using ArcAngels.ArcAngels.Components.Spriting;
 using ArcAngels.ArcAngels.Entities;
-using ArcAngels.ArcAngels.Systems;
 using ArcAngels.ArcAngels.Systems.Rendering;
+using ArcAngels.ArcAngels.Systems.World;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -12,7 +12,7 @@ namespace ArcAngels.Main
     public class ArcAngels : Game
     {
         private GraphicsDeviceManager _graphics;
-        public WorldSystem World;
+        public EntitySystem EntitySystem;
         public RenderingSystem RenderingSystem;
 
         public ArcAngels()
@@ -24,7 +24,7 @@ namespace ArcAngels.Main
 
         protected override void Initialize()
         {
-            World = new WorldSystem();
+            EntitySystem = new EntitySystem();
             RenderingSystem = new RenderingSystem(new SpriteBatch(GraphicsDevice));
 
             base.Initialize();
@@ -32,9 +32,9 @@ namespace ArcAngels.Main
 
         protected override void LoadContent()
         {
-            Entity entity = World.SpawnEntity<Entity>(
+            Entity entity = EntitySystem.SpawnEntity<Entity>(
                 new ObjectComponent { Rectangle = new Rectangle { X = 0, Y = 0, Height = 100, Width = 50 } },
-                new SpriteComponent { Texture = Content.Load<Texture2D>("Akioteste") }
+                new DrawableComponent { Texture = Content.Load<Texture2D>("Akioteste") }
                 );
         }
 
@@ -52,7 +52,7 @@ namespace ArcAngels.Main
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            RenderingSystem.Render(World.RenderableEntities);
+            RenderingSystem.Render(EntitySystem.RenderableEntities);
 
             base.Draw(gameTime);
         }
