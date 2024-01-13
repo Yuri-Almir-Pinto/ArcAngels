@@ -29,7 +29,7 @@ namespace ArcAngels.ArcAngels.Entities
             this._components = new ComponentSet(this);
         }
 
-        public Entity(AbstractComponent[] components)
+        public Entity(params AbstractComponent[] components)
         {
             this._id = _NewId();
             this._components = new ComponentSet(this, components);

@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace ArcAngels.ArcAngels.Systems.Event
 {
 
-    public class EventSystem
+    public class EventSystem : AbstractSystem, IEventSystem
     {
         private Dictionary<EventType, EventHandler<EventArgs>> _eventListeners = new Dictionary<EventType, EventHandler<EventArgs>>();
 
@@ -20,7 +20,7 @@ namespace ArcAngels.ArcAngels.Systems.Event
             }
         }
 
-        public void addEventListener(EventType type, EventHandler<EventArgs> handler)
+        public void AddEventListener(EventType type, EventHandler<EventArgs> handler)
         {
             if (handler != null)
             {
@@ -39,7 +39,7 @@ namespace ArcAngels.ArcAngels.Systems.Event
             }
         }
 
-        public bool removeEventListener(EventType type, EventHandler<EventArgs> handler)
+        public bool RemoveEventListener(EventType type, EventHandler<EventArgs> handler)
         {
             if (handler != null)
             {

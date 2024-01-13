@@ -35,8 +35,8 @@ namespace ArcAngels.Main
             _entitySystem = new EntitySystem();
             _inputSystem = new InputSystem(_eventSystem);
 
-            _eventSystem.addEventListener(EventType.KeyPressed, this.Batata);
-            _eventSystem.addEventListener(EventType.KeyReleased, this.Cenoura);
+            _eventSystem.AddEventListener(EventType.KeyPressed, this.Batata);
+            _eventSystem.AddEventListener(EventType.KeyReleased, this.Cenoura);
 
             base.Initialize();
         }

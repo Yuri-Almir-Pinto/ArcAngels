@@ -11,7 +11,7 @@ namespace ArcAngels.ArcAngels.Systems.World
     {
         // Lists containing all entities currently existing
         private Dictionary<Type, List<Entity>> _entities;
-        private List<Type> _subclasses = GetSubclasses();
+        private List<Type> _subclasses = (List<Type>) GetSubclasses();
         private Type _abstractComponentType = typeof(AbstractComponent);
 
         public EntitySystem() 
@@ -68,7 +68,7 @@ namespace ArcAngels.ArcAngels.Systems.World
             return entityLists;
         }
 
-        private static List<Type> GetSubclasses()
+        private static IEnumerable<Type> GetSubclasses()
         {
             return AppDomain.CurrentDomain.GetAssemblies()
                 .SelectMany(assembly => assembly.GetTypes())
@@ -76,7 +76,7 @@ namespace ArcAngels.ArcAngels.Systems.World
                 .ToList();
         }
 
-        public List<Entity> GetEntityByComponent(params Type[] componentType)
+        public IEnumerable<Entity> GetEntityByComponent(params Type[] componentType)
         {
             if (componentType.Length == 0) return _entities[_abstractComponentType];
             if (componentType.Length == 1) return _entities[componentType[0]];

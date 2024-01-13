@@ -13,10 +13,10 @@ namespace ArcAngels.ArcAngels.Systems.Input
     {
         //private readonly Type[] _dependencies = new Type[1] { typeof(MainPlayerComponent) };
         //public override Type[] Dependencies {  get { return _dependencies; } }
-        private EventSystem _eventSystem;
+        private IEventSystem _eventSystem;
         private KeyboardState _previousKeyboardState;
 
-        public InputSystem(EventSystem eventSystem) 
+        public InputSystem(IEventSystem eventSystem) 
         {
             _eventSystem = eventSystem;
             _previousKeyboardState = Keyboard.GetState();
