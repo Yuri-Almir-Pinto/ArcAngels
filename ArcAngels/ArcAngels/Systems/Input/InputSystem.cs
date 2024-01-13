@@ -28,8 +28,7 @@ namespace ArcAngels.ArcAngels.Systems.Input
             Keys[] pressedKeys = keyboardState.GetPressedKeys();
             Keys[] previousKeys = _previousKeyboardState.GetPressedKeys();
             
-            if (pressedKeys.SequenceEqual(previousKeys)) { }
-            else
+            if (!pressedKeys.SequenceEqual(previousKeys))
             {
                 if (pressedKeys.Length > previousKeys.Length)
                 {
