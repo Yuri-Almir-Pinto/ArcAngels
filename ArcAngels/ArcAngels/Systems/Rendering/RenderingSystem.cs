@@ -15,7 +15,7 @@ namespace ArcAngels.ArcAngels.Systems.Rendering
             {
                 return new Type[1]
                 {
-                    typeof(SpriteComponent)
+                    typeof(DrawableComponent)
                 };
             } 
         }
@@ -32,7 +32,7 @@ namespace ArcAngels.ArcAngels.Systems.Rendering
             foreach (var entity in entities)
             {
                 ObjectComponent objectComponent = (ObjectComponent) entity.Components.GetComponent(typeof(ObjectComponent));
-                SpriteComponent spriteComponent = (SpriteComponent) entity.Components.GetComponent(typeof(SpriteComponent));
+                DrawableComponent spriteComponent = (DrawableComponent) entity.Components.GetComponent(typeof(DrawableComponent));
 
                 _spriteBatch.Draw(spriteComponent.Texture, 
                     objectComponent.Rectangle,

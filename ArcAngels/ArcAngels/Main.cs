@@ -1,13 +1,12 @@
-﻿
-using ArcAngels.ArcAngels.Components;
+﻿using Microsoft.Xna.Framework;
 using ArcAngels.ArcAngels.Components.Object;
-using ArcAngels.ArcAngels.Components.Spriting;
 using ArcAngels.ArcAngels.Entities;
-using ArcAngels.ArcAngels.Systems;
-using ArcAngels.ArcAngels.Systems.Event;
-using Microsoft.Xna.Framework.Graphics;
+using ArcAngels.ArcAngels.Systems.World;
 using System;
 using System.Collections.Generic;
+using ArcAngels.ArcAngels.Components.Spriting;
+using ArcAngels.ArcAngels.Components.Controllable;
+using ArcAngels.ArcAngels.Components.Moveable;
 
 namespace ArcAngels.Main
 {
@@ -16,7 +15,23 @@ namespace ArcAngels.Main
         public static int Main()
         {
             var game = new ArcAngels();
-            game.Run();
+            //game.Run();
+
+            var entities = new EntitySystem();
+
+            entities.SpawnEntity<Entity>(
+                    new ObjectComponent { Rectangle = new Rectangle { X = 0, Y = 0, Width = 100, Height = 300 } },
+                    new ControllableComponent(),
+                    new SelfMoveableComponent()
+                );
+
+            entities.SpawnEntity<Entity>(
+                    new ObjectComponent { Rectangle = new Rectangle { X = 0, Y = 0, Width = 100, Height = 300 } },
+                    new ControllableComponent()
+                );
+            entities.SpawnEntity<Entity>(
+                    new ObjectComponent { Rectangle = new Rectangle { X = 0, Y = 0, Width = 100, Height = 300 } }
+                );
 
             /*WorldSystem World = new WorldSystem();
 

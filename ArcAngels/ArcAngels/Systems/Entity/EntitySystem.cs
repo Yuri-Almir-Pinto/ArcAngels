@@ -3,17 +3,28 @@ using ArcAngels.ArcAngels.Components.Spriting;
 using ArcAngels.ArcAngels.Entities;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ArcAngels.ArcAngels.Systems.World
 {
     public class EntitySystem : AbstractSystem
     {
         // Lists containing all entities currently existing
-        private List<Entity> _globalEntities = new List<Entity>();
-        public List<Entity> GlobalEntities { get { return _globalEntities; } }
+        private Dictionary<Type, List<Entity>> _entities;
+        private List<Type> _subclasses = GetSubclasses();
+        private Type _abstractComponentType = typeof(AbstractComponent);
 
-        private List<Entity> _renderableEntities = new List<Entity>();
-        public List<Entity> RenderableEntities { get { return _renderableEntities; } }
+        public EntitySystem() 
+        {
+            _entities = new Dictionary<Type, List<Entity>>();
+
+            _entities[_abstractComponentType] = new List<Entity>();
+
+            foreach (var subclass in _subclasses)
+            {
+                _entities[subclass] = new List<Entity>();
+            }
+        }
 
         public Entity SpawnEntity<TEntity>(params AbstractComponent[] components) where TEntity : Entity, new()
         {
@@ -42,19 +53,27 @@ namespace ArcAngels.ArcAngels.Systems.World
             return entity;
         }
 
-        private IEnumerable<List<Entity>> GetRelevantEntityList(IEnumerable<Type> types)
+        private IEnumerable<List<Entity>> GetRelevantEntityList(IEnumerable<Type> subclasses)
         {
             HashSet<List<Entity>> entityLists = new HashSet<List<Entity>>
             {
-                _globalEntities
+                _entities[_abstractComponentType]
             };
 
-            foreach (var type in types)
+            foreach (var subclass in subclasses)
             {
-                if (type == typeof(DrawableComponent)) entityLists.Add(_renderableEntities);
+                entityLists.Add(_entities[subclass]);
             }
 
             return entityLists;
+        }
+
+        public static List<Type> GetSubclasses()
+        {
+            return AppDomain.CurrentDomain.GetAssemblies()
+                .SelectMany(assembly => assembly.GetTypes())
+                .Where(type => typeof(AbstractComponent).IsAssignableFrom(type) && type != typeof(AbstractComponent) && type.IsClass)
+                .ToList();
         }
     }
 }
