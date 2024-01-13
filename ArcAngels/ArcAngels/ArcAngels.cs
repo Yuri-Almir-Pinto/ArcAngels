@@ -2,6 +2,7 @@
 using ArcAngels.ArcAngels.Components.Spriting;
 using ArcAngels.ArcAngels.Entities;
 using ArcAngels.ArcAngels.Systems.Event;
+using ArcAngels.ArcAngels.Systems.Input;
 using ArcAngels.ArcAngels.Systems.Rendering;
 using ArcAngels.ArcAngels.Systems.World;
 using Microsoft.Xna.Framework;
@@ -16,6 +17,7 @@ namespace ArcAngels.Main
         private RenderingSystem _renderingSystem;
         private EventSystem _eventSystem;
         private EntitySystem _entitySystem;
+        private InputSystem _inputSystem;
 
         public ArcAngels()
         {
@@ -29,6 +31,7 @@ namespace ArcAngels.Main
             _renderingSystem = new RenderingSystem(new SpriteBatch(GraphicsDevice));
             _eventSystem = new EventSystem();
             _entitySystem = new EntitySystem();
+            _inputSystem = new InputSystem();
 
             base.Initialize();
         }
@@ -55,7 +58,7 @@ namespace ArcAngels.Main
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            //_renderingSystem.Render(_entitySystem.RenderableEntities);
+            _renderingSystem.Render(_entitySystem.GetEntityByComponent(_renderingSystem.Dependencies));
 
             base.Draw(gameTime);
         }

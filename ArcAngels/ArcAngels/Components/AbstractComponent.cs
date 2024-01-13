@@ -6,9 +6,10 @@ namespace ArcAngels.ArcAngels.Components
 {
     public abstract class AbstractComponent
     {
+        private readonly Type[] _dependencies = Array.Empty<Type>();
         public virtual Type[] Dependencies { get
             {
-                return Array.Empty<Type>();
+                return _dependencies;
             } 
         }
         public Entity Owner;

@@ -11,14 +11,8 @@ namespace ArcAngels.ArcAngels.Systems.Rendering
     public class RenderingSystem : AbstractSystem
     {
         private SpriteBatch _spriteBatch;
-        public override Type[] Dependencies {  get
-            {
-                return new Type[1]
-                {
-                    typeof(DrawableComponent)
-                };
-            } 
-        }
+        private readonly Type[] _dependencies = new Type[1] { typeof(DrawableComponent) };
+        public override Type[] Dependencies { get { return _dependencies; } }
 
         public RenderingSystem(SpriteBatch spriteBatch)
         {

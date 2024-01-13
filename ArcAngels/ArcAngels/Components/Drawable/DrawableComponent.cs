@@ -8,16 +8,8 @@ namespace ArcAngels.ArcAngels.Components.Spriting
     // A component that stores data relevant to rendering an entity on the screen, such as sprites.
     public class DrawableComponent : AbstractComponent
     {
-        public override Type[] Dependencies 
-        { 
-            get 
-            {
-                return new Type[1]
-                {
-                    typeof(ObjectComponent)
-                }; 
-            } 
-        }
+        private readonly Type[] _dependencies = new Type[1] { typeof(ObjectComponent) };
+        public override Type[] Dependencies {  get { return _dependencies; } }
         public required Texture2D Texture { get; set; }
 
     }

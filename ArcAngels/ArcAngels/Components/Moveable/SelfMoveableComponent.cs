@@ -6,17 +6,8 @@ namespace ArcAngels.ArcAngels.Components.Moveable
 {
     public class SelfMoveableComponent : AbstractComponent
     {
-        public override Type[] Dependencies
-        {
-            get
-            {
-                return new Type[2]
-                {
-                    typeof(ObjectComponent),
-                    typeof(ControllableComponent)
-                };
-            }
-        }
+        private readonly Type[] _dependencies = new Type[2] { typeof(ObjectComponent), typeof(ControllableComponent) };
+        public override Type[] Dependencies { get { return _dependencies; } }
 
         public float Speed;
     }

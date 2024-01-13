@@ -7,11 +7,9 @@ namespace ArcAngels.ArcAngels.Systems
 {
     public abstract class AbstractSystem
     {
-        public virtual Type[] Dependencies { get 
-            {
-                return Array.Empty<Type>();
-            } 
-        }
+        private readonly Type[] _dependencies = Array.Empty<Type>();
+        public virtual Type[] Dependencies {  get { return _dependencies; } }
+
         public bool HasDependencies(Entity entity)
         {
             foreach (var type in Dependencies)

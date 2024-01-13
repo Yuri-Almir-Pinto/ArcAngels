@@ -15,11 +15,11 @@ namespace ArcAngels.Main
         public static int Main()
         {
             var game = new ArcAngels();
-            //game.Run();
+            game.Run();
 
             var entities = new EntitySystem();
 
-            entities.SpawnEntity<Entity>(
+            /*entities.SpawnEntity<Entity>(
                     new ObjectComponent { Rectangle = new Rectangle { X = 0, Y = 0, Width = 100, Height = 300 } },
                     new ControllableComponent(),
                     new SelfMoveableComponent()
@@ -31,7 +31,7 @@ namespace ArcAngels.Main
                 );
             entities.SpawnEntity<Entity>(
                     new ObjectComponent { Rectangle = new Rectangle { X = 0, Y = 0, Width = 100, Height = 300 } }
-                );
+                );*/
 
             /*WorldSystem World = new WorldSystem();
 

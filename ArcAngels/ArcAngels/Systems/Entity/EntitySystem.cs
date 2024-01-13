@@ -75,5 +75,19 @@ namespace ArcAngels.ArcAngels.Systems.World
                 .Where(type => typeof(AbstractComponent).IsAssignableFrom(type) && type != typeof(AbstractComponent) && type.IsClass)
                 .ToList();
         }
+
+        public List<Entity> GetEntityByComponent(params Type[] componentType)
+        {
+            if (componentType.Length == 0) return _entities[_abstractComponentType];
+            if (componentType.Length == 1) return _entities[componentType[0]];
+            else return new List<Entity>();
+            // Only implement search based on multiple components when absolutely necessary.
+            // Because it will probably eat a LOT of resources. Too complex for now.
+
+            // Note for future selves: If systems with more than one dependency start do become common, implement a system that
+            // checks for all child classes of "AbstractSystem" with more than one dependencies, puts every unique combination in a list
+            // and uses this list as a key in a dictionary which accepts Type[] types, also integrating with the Spawn and Despawn methods
+            // to check for these specific combinations, and organize them upon spawning and despawning entities.
+        }
     }
 }
