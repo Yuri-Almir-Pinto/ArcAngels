@@ -17,8 +17,6 @@ namespace ArcAngels.Main
             var game = new ArcAngels();
             game.Run();
 
-            var entities = new EntitySystem();
-
             /*entities.SpawnEntity<Entity>(
                     new ObjectComponent { Rectangle = new Rectangle { X = 0, Y = 0, Width = 100, Height = 300 } },
                     new ControllableComponent(),

@@ -1,19 +1,22 @@
-﻿using ArcAngels.ArcAngels.Entities;
+﻿using ArcAngels.ArcAngels.Components;
+using ArcAngels.ArcAngels.Entities;
+using ArcAngels.Main;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
 namespace ArcAngels.ArcAngels.Systems.Event
 {
+
     public class EventSystem
     {
         private Dictionary<EventType, EventHandler<EventArgs>> _eventListeners = new Dictionary<EventType, EventHandler<EventArgs>>();
 
-        public void Call(Entity entity, EventType type)
+        public void Call(EventType type, Entity? entity = null, SystemsArgs? args = null)
         {
             if (_eventListeners.ContainsKey(type))
             {
-                _eventListeners[type]?.Invoke(entity, EventArgs.Empty);
+                _eventListeners[type]?.Invoke(entity, args);
             }
         }
 
@@ -54,20 +57,6 @@ namespace ArcAngels.ArcAngels.Systems.Event
             {
                 throw new ArgumentNullException("Provided event handler is null.");
             }
-        }
-
-    }
-
-    public partial class EventType
-    {
-        public static readonly EventType Event = new("Event");
-        public static readonly EventType Event2 = new("Event");
-
-        public string Type;
-
-        public EventType(string eventType)
-        {
-            Type = eventType;
         }
 
     }

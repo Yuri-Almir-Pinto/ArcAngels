@@ -11,12 +11,3 @@ namespace ArcAngels.ArcAngels.Components.MainPlayer
     }
 
 }
-
-namespace ArcAngels.ArcAngels.Systems.Event
-{
-    public partial class EventType
-    {
-        public static readonly EventType KeyPressed = new("KeyPressed");
-        public static readonly EventType KeyReleased = new("KeyReleased");
-    }
-}

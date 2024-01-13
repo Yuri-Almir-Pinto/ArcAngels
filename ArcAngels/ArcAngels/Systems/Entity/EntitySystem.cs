@@ -68,7 +68,7 @@ namespace ArcAngels.ArcAngels.Systems.World
             return entityLists;
         }
 
-        public static List<Type> GetSubclasses()
+        private static List<Type> GetSubclasses()
         {
             return AppDomain.CurrentDomain.GetAssemblies()
                 .SelectMany(assembly => assembly.GetTypes())

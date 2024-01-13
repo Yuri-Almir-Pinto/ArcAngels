@@ -8,6 +8,8 @@ using ArcAngels.ArcAngels.Systems.World;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
+using System.Diagnostics;
 
 namespace ArcAngels.Main
 {
@@ -31,7 +33,10 @@ namespace ArcAngels.Main
             _renderingSystem = new RenderingSystem(new SpriteBatch(GraphicsDevice));
             _eventSystem = new EventSystem();
             _entitySystem = new EntitySystem();
-            _inputSystem = new InputSystem();
+            _inputSystem = new InputSystem(_eventSystem);
+
+            _eventSystem.addEventListener(EventType.KeyPressed, this.Batata);
+            _eventSystem.addEventListener(EventType.KeyReleased, this.Cenoura);
 
             base.Initialize();
         }
@@ -46,8 +51,7 @@ namespace ArcAngels.Main
 
         protected override void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+            _inputSystem.Update();
 
             // TODO: Add your update logic here
 
@@ -61,6 +65,16 @@ namespace ArcAngels.Main
             _renderingSystem.Render(_entitySystem.GetEntityByComponent(_renderingSystem.Dependencies));
 
             base.Draw(gameTime);
+        }
+
+        public void Batata(object entity, EventArgs args)
+        {
+            Debug.WriteLine("Batata");
+        }
+
+        public void Cenoura(object entity, EventArgs args)
+        {
+            Debug.WriteLine("Cenoura");
         }
     }
 }
