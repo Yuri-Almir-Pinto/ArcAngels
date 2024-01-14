@@ -1,16 +1,9 @@
-﻿using ArcAngels.ArcAngels.Components;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 
 namespace ArcAngels.ArcAngels.Systems.Event
 {
-    public class SystemsArgs : EventArgs
+    public partial class SystemsArgs : EventArgs
     {
-        public List<AbstractComponent> data;
-        public SystemsArgs(params AbstractComponent[] eventData)
-        {
-            data = eventData.ToList();
-        }
+        // Base class. Implement more fields of the SystemsArgs class on other files, containing objects with the specific args.
     }
 }

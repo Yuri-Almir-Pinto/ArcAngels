@@ -67,14 +67,20 @@ namespace ArcAngels.Main
             base.Draw(gameTime);
         }
 
-        public void Batata(object entity, EventArgs args)
+        public void Batata(object entity, SystemsArgs args)
         {
-            Debug.WriteLine("Batata");
+            if (args.InputArgs != null)
+            {
+                Debug.WriteLine(args.InputArgs.PressedKey[0]);
+            }
         }
 
-        public void Cenoura(object entity, EventArgs args)
+        public void Cenoura(object entity, SystemsArgs args)
         {
-            Debug.WriteLine("Cenoura");
+            if (args.InputArgs != null)
+            {
+                Debug.WriteLine(args.InputArgs.PressedKey[0]);
+            }
         }
     }
 }

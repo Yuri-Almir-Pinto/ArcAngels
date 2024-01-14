@@ -10,7 +10,7 @@ namespace ArcAngels.ArcAngels.Systems.Event
 
     public class EventSystem : AbstractSystem, IEventSystem
     {
-        private Dictionary<EventType, EventHandler<EventArgs>> _eventListeners = new Dictionary<EventType, EventHandler<EventArgs>>();
+        private Dictionary<EventType, EventHandler<SystemsArgs>> _eventListeners = new Dictionary<EventType, EventHandler<SystemsArgs>>();
 
         public void Call(EventType type, Entity? entity = null, SystemsArgs? args = null)
         {
@@ -20,7 +20,7 @@ namespace ArcAngels.ArcAngels.Systems.Event
             }
         }
 
-        public void AddEventListener(EventType type, EventHandler<EventArgs> handler)
+        public void AddEventListener(EventType type, EventHandler<SystemsArgs> handler)
         {
             if (handler != null)
             {
@@ -39,7 +39,7 @@ namespace ArcAngels.ArcAngels.Systems.Event
             }
         }
 
-        public bool RemoveEventListener(EventType type, EventHandler<EventArgs> handler)
+        public bool RemoveEventListener(EventType type, EventHandler<SystemsArgs> handler)
         {
             if (handler != null)
             {

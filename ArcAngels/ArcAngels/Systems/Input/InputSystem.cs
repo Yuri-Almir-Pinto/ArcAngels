@@ -1,5 +1,4 @@
 ﻿using ArcAngels.ArcAngels.Components.Controllable;
-using ArcAngels.ArcAngels.Components.MainPlayer;
 using ArcAngels.ArcAngels.Systems.Event;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
@@ -34,10 +33,10 @@ namespace ArcAngels.ArcAngels.Systems.Input
                 {
                     Keys[] pressed = pressedKeys.Except(previousKeys).ToArray();
 
-                    SystemsArgs keys = new SystemsArgs(new ControllableComponent
+                    SystemsArgs keys = new SystemsArgs
                     {
-                        PressedKeys = pressed
-                    });
+                        InputArgs = new InputArgs { PressedKey = pressed }
+                    };
 
                     _eventSystem.Call(EventType.KeyPressed, args: keys);
 
@@ -47,10 +46,10 @@ namespace ArcAngels.ArcAngels.Systems.Input
                 {
                     Keys[] released = previousKeys.Except(pressedKeys).ToArray();
 
-                    SystemsArgs keys = new SystemsArgs(new ControllableComponent
+                    SystemsArgs keys = new SystemsArgs
                     {
-                        PressedKeys = released
-                    });
+                        InputArgs = new InputArgs { PressedKey = released }
+                    };
 
                     _eventSystem.Call(EventType.KeyReleased, args: keys);
 
@@ -68,6 +67,16 @@ namespace ArcAngels.ArcAngels.Systems.Event
     {
         public static readonly EventType KeyPressed = new("KeyPressed");
         public static readonly EventType KeyReleased = new("KeyReleased");
+    }
+
+    public partial class SystemsArgs
+    {
+        public InputArgs InputArgs;
+    }
+
+    public class InputArgs : EventArgs
+    {
+        public Keys[] PressedKey;
     }
 }
 
