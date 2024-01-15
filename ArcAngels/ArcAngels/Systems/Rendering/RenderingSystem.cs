@@ -11,6 +11,7 @@ namespace ArcAngels.ArcAngels.Systems.Rendering
     public class RenderingSystem : AbstractSystem
     {
         private SpriteBatch _spriteBatch;
+
         private readonly Type[] _dependencies = new Type[1] { typeof(DrawableComponent) };
         public override Type[] Dependencies { get { return _dependencies; } }
 
@@ -26,7 +27,7 @@ namespace ArcAngels.ArcAngels.Systems.Rendering
             foreach (var entity in entities)
             {
                 ObjectComponent objectComponent = (ObjectComponent) entity.Components.GetComponent(typeof(ObjectComponent));
-                DrawableComponent spriteComponent = (DrawableComponent) entity.Components.GetComponent(typeof(DrawableComponent));
+                DrawableComponent spriteComponent = (DrawableComponent)entity.Components.GetComponent(_dependencies[0]);
 
                 _spriteBatch.Draw(spriteComponent.Texture, 
                     objectComponent.Rectangle,

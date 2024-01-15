@@ -2,28 +2,26 @@
 using ArcAngels.ArcAngels.Components.Moveable;
 using ArcAngels.ArcAngels.Components.Object;
 using ArcAngels.ArcAngels.Components.Spriting;
+using ArcAngels.ArcAngels.Systems.World;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace ArcAngels.ArcAngels.Entities.Player
 {
-    public class PlayerEntity : Entity
+    public static class PlayerEntity
     {
-        public PlayerEntity(Texture2D texture, int X = 0, int Y = 0, int height = 300, int width = 100, float speed = 1) 
-            : base(Init(texture, X, Y, height, width, speed))
-        {
-            
-        }
 
-        private static AbstractComponent[] Init(Texture2D texture, int X, int Y, int height, int width, float speed)
+        public static Entity Spawn(EntitySystem entitySystem, Texture2D texture)
         {
-            return new AbstractComponent[]
-            {
-                new ObjectComponent { Rectangle = new Rectangle { X = X, Y = Y, Height = height, Width = width } },
-                new DrawableComponent { Texture = texture },
-                new SelfMoveableComponent { Speed = speed}
-            };
+            Entity playerEntity = entitySystem.SpawnEntity<Entity>(new AbstractComponent[]
+                {
+                    new ObjectComponent { Rectangle = new Rectangle { X = 0, Y = 0, Height = 250, Width = 100 } },
+                    new DrawableComponent { Texture =  texture},
+                    new SelfMoveableComponent { Speed = 3}
+                });
 
+            return playerEntity;
         }
     }
 }

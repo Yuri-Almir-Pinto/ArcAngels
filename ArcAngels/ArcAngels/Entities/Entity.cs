@@ -10,12 +10,25 @@ namespace ArcAngels.ArcAngels.Entities
         private int _id;
         private static int _nextId = 0;
         private static List<int> _idsToFill = new List<int>();
-        private ComponentSet _components;
+        protected ComponentSet _components;
 
         public int Id { get { return _id; } }
         public AbstractComponent[] InitComponents
         {
-            init => _components = new ComponentSet(this, value);
+            init
+            {
+                if (_components == null)
+                {
+                    _components = new ComponentSet(this, value);
+                }
+                else
+                {
+                    foreach (var component in value)
+                    {
+                        _components.AddComponent(component);
+                    }
+                }
+            } 
         }
 
         public ComponentSet Components
@@ -26,13 +39,26 @@ namespace ArcAngels.ArcAngels.Entities
         public Entity()
         {
             this._id = _NewId();
-            this._components = new ComponentSet(this);
+            if (_components == null)
+            {
+                _components = new ComponentSet(this);
+            }
         }
 
         public Entity(params AbstractComponent[] components)
         {
             this._id = _NewId();
-            this._components = new ComponentSet(this, components);
+            if (_components == null)
+            {
+                _components = new ComponentSet(this, components);
+            }
+            else
+            {
+                foreach (var component in components)
+                {
+                    _components.AddComponent(component);
+                }
+            }
         }
 
         private int _NewId() 

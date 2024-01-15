@@ -19,14 +19,56 @@ namespace ArcAngels.ArcAngels.Systems.Input
         {
             _eventSystem = eventSystem;
             _previousKeyboardState = Keyboard.GetState();
+
+            _eventSystem.AddEventListener(EventType.Update, Update);
         }
 
-        public void Update()
+        public void Update(object sender = null, SystemsArgs args = null)
         {
             KeyboardState keyboardState = Keyboard.GetState();
             Keys[] pressedKeys = keyboardState.GetPressedKeys();
             Keys[] previousKeys = _previousKeyboardState.GetPressedKeys();
-            
+
+            // Check for newly pressed keys
+            foreach (Keys key in pressedKeys)
+            {
+                if (!_previousKeyboardState.IsKeyDown(key))
+                {
+                    // Key was just pressed
+                    SystemsArgs keyPressedArgs = new SystemsArgs
+                    {
+                        InputArgs = new InputArgs { PressedKey = new Keys[] { key } }
+                    };
+
+                    _eventSystem.Call(EventType.KeyPressed, args: keyPressedArgs);
+                }
+            }
+
+            // Check for released keys
+            foreach (Keys key in previousKeys)
+            {
+                if (!keyboardState.IsKeyDown(key))
+                {
+                    // Key was just released
+                    SystemsArgs keyReleasedArgs = new SystemsArgs
+                    {
+                        InputArgs = new InputArgs { PressedKey = new Keys[] { key } }
+                    };
+
+                    _eventSystem.Call(EventType.KeyReleased, args: keyReleasedArgs);
+                }
+            }
+
+            // Update the previous keyboard state
+            _previousKeyboardState = keyboardState;
+        }
+
+        /*public void Update(object sender = null, SystemsArgs args = null)
+        {
+            KeyboardState keyboardState = Keyboard.GetState();
+            Keys[] pressedKeys = keyboardState.GetPressedKeys();
+            Keys[] previousKeys = _previousKeyboardState.GetPressedKeys();
+
             if (!pressedKeys.SequenceEqual(previousKeys))
             {
                 if (pressedKeys.Length > previousKeys.Length)
@@ -56,7 +98,7 @@ namespace ArcAngels.ArcAngels.Systems.Input
                     _previousKeyboardState = keyboardState;
                 }
             }
-        }
+        }*/
 
     }
 }

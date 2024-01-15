@@ -1,14 +1,13 @@
-﻿using ArcAngels.ArcAngels.Components.Object;
-using ArcAngels.ArcAngels.Components.Spriting;
-using ArcAngels.ArcAngels.Entities;
+﻿using ArcAngels.ArcAngels.Entities;
+using ArcAngels.ArcAngels.Entities.Player;
 using ArcAngels.ArcAngels.Systems.Event;
 using ArcAngels.ArcAngels.Systems.Input;
+using ArcAngels.ArcAngels.Systems.Player;
 using ArcAngels.ArcAngels.Systems.Rendering;
 using ArcAngels.ArcAngels.Systems.World;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
 using System.Diagnostics;
 
 namespace ArcAngels.Main
@@ -20,6 +19,7 @@ namespace ArcAngels.Main
         private EventSystem _eventSystem;
         private EntitySystem _entitySystem;
         private InputSystem _inputSystem;
+        private PlayerSystem _playerSystem;
 
         public ArcAngels()
         {
@@ -34,24 +34,20 @@ namespace ArcAngels.Main
             _eventSystem = new EventSystem();
             _entitySystem = new EntitySystem();
             _inputSystem = new InputSystem(_eventSystem);
-
-            _eventSystem.AddEventListener(EventType.KeyPressed, this.Batata);
-            _eventSystem.AddEventListener(EventType.KeyReleased, this.Cenoura);
+            Entity player = PlayerEntity.Spawn(_entitySystem, Content.Load<Texture2D>("Akioteste"));
+            _playerSystem = new PlayerSystem(_eventSystem, player);
 
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-            Entity entity = _entitySystem.SpawnEntity<Entity>(
-                new ObjectComponent { Rectangle = new Rectangle { X = 0, Y = 0, Height = 100, Width = 50 } },
-                new DrawableComponent { Texture = Content.Load<Texture2D>("Akioteste") }
-            );
         }
 
         protected override void Update(GameTime gameTime)
         {
-            _inputSystem.Update();
+            _eventSystem.Call(EventType.Update);
+            
 
             // TODO: Add your update logic here
 

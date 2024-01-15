@@ -8,12 +8,12 @@ namespace ArcAngels.ArcAngels.Systems.Event
 {
     public partial class EventType
     {
-        public static readonly EventType Event = new("Event");
-        public static readonly EventType Event2 = new("Event");
+        // Fired on every game update in the main 'Update()' method.
+        public static readonly EventType Update = new("Update");
 
         public string Type;
 
-        public EventType(string eventType)
+        private EventType(string eventType)
         {
             Type = eventType;
         }

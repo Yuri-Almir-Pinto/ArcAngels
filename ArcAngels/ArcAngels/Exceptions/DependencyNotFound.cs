@@ -19,6 +19,11 @@ namespace ArcAngels.ArcAngels.Exceptions
 
         }
 
+        public DependencyNotFound(Type component) : base($"The following component was not found, and it is required: {component.Name}")
+        {
+
+        }
+
         private static string ListToString(Type[] dependencies)
         {
             string dependenciesNames = "";
