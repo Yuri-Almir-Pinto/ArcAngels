@@ -8,8 +8,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 
 namespace ArcAngels.ArcAngels.Systems.Player
 {
@@ -51,8 +49,6 @@ namespace ArcAngels.ArcAngels.Systems.Player
             {
                 Keys keyPressed = args.InputArgs.PressedKey[0];
 
-                Debug.WriteLine($"KeyPressed: {keyPressed}");
-
                 if (!PressedKeys.Contains(keyPressed))
                 {
                     PressedKeys.Add(keyPressed);
@@ -66,32 +62,10 @@ namespace ArcAngels.ArcAngels.Systems.Player
             {
                 Keys keyReleased = args.InputArgs.PressedKey[0];
 
-                Debug.WriteLine($"KeyReleased: {keyReleased}");
-
                 if (PressedKeys.Contains(keyReleased))
                 {
                     PressedKeys.Remove(keyReleased);
                 }
-            }
-
-        }
-
-        public void TestMovePlayer(object sender, SystemsArgs args)
-        {
-            if (args.InputArgs.PressedKey.Length > 0)
-            {
-                ObjectComponent objectComponent = (ObjectComponent)_playerEntity.Components.GetComponent(_dependencies[0]);
-                SelfMoveableComponent selfMoveableComponent = (SelfMoveableComponent)_playerEntity.Components.GetComponent(_dependencies[2]);
-
-                List<Keys> keys = args.InputArgs.PressedKey.ToList();
-
-                if (keys.Contains(Keys.A))
-                    pos.X -= (int)selfMoveableComponent.Speed;
-
-                if (keys.Contains(Keys.D))
-                    pos.X += (int)selfMoveableComponent.Speed;
-
-                objectComponent.Rectangle = pos;
             }
 
         }
