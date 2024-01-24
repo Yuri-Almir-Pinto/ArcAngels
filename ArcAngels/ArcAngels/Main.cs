@@ -6,8 +6,7 @@ using System;
 using System.Collections.Generic;
 using ArcAngels.ArcAngels.Components.Spriting;
 using ArcAngels.ArcAngels.Components.Controllable;
-using ArcAngels.ArcAngels.Components.Moveable;
-
+using ECS_Library.Components;
 namespace ArcAngels.Main
 {
     class Entry
